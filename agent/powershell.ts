@@ -21,6 +21,10 @@ export async function runPowerShell(command: string): Promise<string> {
       stderr += data.toString();
     });
 
+    child.on("error", (error) => {
+      reject(error);
+    });
+
     child.on("close", (code) => {
       if (code === 0) {
         resolve(stdout.trim());

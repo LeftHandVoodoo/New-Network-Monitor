@@ -3,18 +3,37 @@ import { runPowerShell } from "./powershell";
 
 export function parseAdapters(json: string): Adapter[] {
   if (!json) return [];
-  const parsed = JSON.parse(json) as unknown;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(json) as unknown;
+  } catch {
+    return [];
+  }
+
+  if (parsed === null) return [];
+
   const items = Array.isArray(parsed) ? parsed : [parsed];
-  return items.map((item: any) => ({
-    name: String(item.Name ?? ""),
-    status: String(item.Status ?? ""),
-    type: String(item.InterfaceType ?? "")
-  }));
+  const adapters: Adapter[] = [];
+
+  for (const item of items) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      continue;
+    }
+
+    const record = item as { Name?: unknown; Status?: unknown; InterfaceType?: unknown };
+    adapters.push({
+      name: String(record.Name ?? ""),
+      status: String(record.Status ?? ""),
+      type: String(record.InterfaceType ?? "")
+    });
+  }
+
+  return adapters;
 }
 
 export async function listAdapters(): Promise<Adapter[]> {
   const command =
-    "Get-NetAdapter | Select-Object Name, Status, InterfaceType | ConvertTo-Json";
+    "Get-NetAdapter -ErrorAction Stop | Select-Object Name, Status, InterfaceType | ConvertTo-Json";
   const output = await runPowerShell(command);
   return parseAdapters(output);
 }
