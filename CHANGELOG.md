@@ -8,8 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+### Removed
+
+## [0.2.0] - 2026-02-01
+
+### Added
 - Add Testing Library + jest-dom setup with a baseline UI test.
 - Add agent TypeScript tooling config and scripts.
+- Add adapter parsing utilities and PowerShell runner.
 
 ### Changed
 - Add `jsdom` dev dependency to support Vitest's jsdom environment.
