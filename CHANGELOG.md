@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Add Testing Library + jest-dom setup with a baseline UI test.
+- Add agent TypeScript tooling config and scripts.
 
 ### Changed
 - Add `jsdom` dev dependency to support Vitest's jsdom environment.
