@@ -13,8 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Add `jsdom` dev dependency to support Vitest's jsdom environment.
+- Align `@types/node` to Node 20.
 
 ### Fixed
+- Add a minimal agent entrypoint so `tsconfig.agent.json` has inputs.
+- Use the Vitest-specific jest-dom setup import.
 
 ### Removed
 
