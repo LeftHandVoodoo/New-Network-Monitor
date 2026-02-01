@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
-import { createServer } from "./server";
-import { listAdapters } from "./adapters";
-import { parseConnectivityProfiles } from "./connectivity";
-import { nextMonitorState, MonitorState } from "./monitor";
-import { runPowerShell } from "./powershell";
-import { readAgentConfig } from "./config";
+import { createServer } from "./server.js";
+import { listAdapters } from "./adapters.js";
+import { parseConnectivityProfiles } from "./connectivity.js";
+import { nextMonitorState, MonitorState } from "./monitor.js";
+import { runPowerShell } from "./powershell.js";
+import { readAgentConfig } from "./config.js";
 
 type LogLevel = "debug" | "info" | "warn" | "error";
 

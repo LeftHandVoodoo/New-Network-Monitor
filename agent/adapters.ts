@@ -1,5 +1,5 @@
-import { Adapter } from "./types";
-import { runPowerShell } from "./powershell";
+import { Adapter } from "./types.js";
+import { runPowerShell } from "./powershell.js";
 
 export function parseAdapters(json: string): Adapter[] {
   if (!json) return [];
