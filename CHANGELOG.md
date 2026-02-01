@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add UI agent client, polling hook, and status view for adapter management.
 - Add Testing Library + jest-dom setup with a baseline UI test.
 - Add agent TypeScript tooling config and scripts.
 - Add adapter parsing utilities and PowerShell runner.
