@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add connectivity profile parsing and monitor reset logic.
 - Add tests for connectivity profile parsing and reset threshold behavior.
 - Add agent HTTP server with token auth and health/status endpoints.
+- Add agent runtime wiring, config loader, and start script.
+- Document local agent startup and IPC env vars.
 
 ### Changed
 

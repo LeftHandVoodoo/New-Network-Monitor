@@ -11,8 +11,13 @@ npm install
 ## Usage
 
 ```powershell
+Copy-Item .env.example .env
+# Update IPC_TOKEN and VITE_IPC_TOKEN to the same value.
+.\scripts\start-agent.ps1
 npm run dev
 ```
+
+The agent is a single local process started on demand (no Windows service or installer).
 
 ## Documentation
 
