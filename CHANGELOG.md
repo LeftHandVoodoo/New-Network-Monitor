@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add agent TypeScript tooling config and scripts.
 - Add adapter parsing utilities and PowerShell runner.
 - Add coverage for listAdapters error propagation.
+- Add connectivity profile parsing and monitor reset logic.
 
 ### Changed
 
