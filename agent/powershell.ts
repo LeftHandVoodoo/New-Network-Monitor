@@ -2,34 +2,40 @@ import { spawn } from "node:child_process";
 
 export async function runPowerShell(command: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    const child = spawn("powershell.exe", [
-      "-NoProfile",
-      "-ExecutionPolicy",
-      "Bypass",
-      "-Command",
-      command
-    ]);
+    const child = spawn(
+      "powershell.exe",
+      ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", command],
+      { windowsHide: true }
+    );
 
     let stdout = "";
     let stderr = "";
 
-    child.stdout.on("data", (data) => {
-      stdout += data.toString();
-    });
+    if (child.stdout) {
+      child.stdout.setEncoding("utf16le");
+      child.stdout.on("data", (data) => {
+        stdout += data;
+      });
+    }
 
-    child.stderr.on("data", (data) => {
-      stderr += data.toString();
-    });
+    if (child.stderr) {
+      child.stderr.setEncoding("utf16le");
+      child.stderr.on("data", (data) => {
+        stderr += data;
+      });
+    }
 
     child.on("error", (error) => {
       reject(error);
     });
 
     child.on("close", (code) => {
+      const cleanedStdout = stdout.replace(/^\uFEFF/, "").trim();
+      const cleanedStderr = stderr.replace(/^\uFEFF/, "").trim();
       if (code === 0) {
-        resolve(stdout.trim());
+        resolve(cleanedStdout);
       } else {
-        reject(new Error(stderr.trim() || `PowerShell exited with ${code}`));
+        reject(new Error(cleanedStderr || `PowerShell exited with ${code}`));
       }
     });
   });

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Testing Library + jest-dom setup with a baseline UI test.
 - Add agent TypeScript tooling config and scripts.
 - Add adapter parsing utilities and PowerShell runner.
+- Add coverage for listAdapters error propagation.
 
 ### Changed
 
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use the Vitest-specific jest-dom setup import.
 - Harden PowerShell adapter parsing for invalid payloads and add coverage.
 - Fail fast on PowerShell adapter query errors.
+- Decode UTF-16LE PowerShell output (strip BOM) and hide the console window.
 
 ### Removed
 

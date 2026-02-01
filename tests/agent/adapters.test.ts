@@ -1,6 +1,11 @@
 // @vitest-environment node
-import { describe, it, expect } from "vitest";
-import { parseAdapters } from "../../agent/adapters";
+import { describe, it, expect, vi } from "vitest";
+import { listAdapters, parseAdapters } from "../../agent/adapters";
+import { runPowerShell } from "../../agent/powershell";
+
+vi.mock("../../agent/powershell", () => ({
+  runPowerShell: vi.fn()
+}));
 
 describe("parseAdapters", () => {
   it("normalizes adapter list", () => {
@@ -42,5 +47,14 @@ describe("parseAdapters", () => {
 
     const result = parseAdapters(json);
     expect(result).toEqual([{ name: "Wi-Fi", status: "Up", type: "Wireless80211" }]);
+  });
+});
+
+describe("listAdapters", () => {
+  it("propagates errors from runPowerShell", async () => {
+    const error = new Error("boom");
+    vi.mocked(runPowerShell).mockRejectedValueOnce(error);
+
+    await expect(listAdapters()).rejects.toThrow("boom");
   });
 });
