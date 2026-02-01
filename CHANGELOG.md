@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add agent HTTP server with token auth and health/status endpoints.
 - Add agent runtime wiring, config loader, and start script.
 - Document local agent startup and IPC env vars.
+- Add Python launcher script for starting agent + UI together.
 
 ### Changed
 

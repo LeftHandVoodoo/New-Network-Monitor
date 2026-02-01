@@ -19,6 +19,12 @@ npm run dev
 
 The agent is a single local process started on demand (no Windows service or installer).
 
+You can also launch both agent and UI with:
+
+```powershell
+python .\scripts\start-app.py
+```
+
 ## Documentation
 
 - [Architecture Overview](docs/architecture.md)
