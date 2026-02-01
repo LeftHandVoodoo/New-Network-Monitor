@@ -9,24 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-### Changed
-
-### Fixed
-
-### Removed
-
-## [0.1.1] - 2026-02-01
-
-### Added
 - Add Testing Library + jest-dom setup with a baseline UI test.
 - Add agent TypeScript tooling config and scripts.
 - Add adapter parsing utilities and PowerShell runner.
 
 ### Changed
+
 - Add `jsdom` dev dependency to support Vitest's jsdom environment.
 - Align `@types/node` to Node 20.
 
 ### Fixed
+
 - Add a minimal agent entrypoint so `tsconfig.agent.json` has inputs.
 - Use the Vitest-specific jest-dom setup import.
 - Harden PowerShell adapter parsing for invalid payloads and add coverage.
