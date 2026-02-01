@@ -30,4 +30,18 @@ describe("monitor", () => {
     expect(state.shouldReset).toBe(false);
     expect(state.status).toBe("online");
   });
+
+  it("does not repeat reset after reaching the threshold", () => {
+    let state = base;
+    const now = "2026-02-01T00:00:05Z";
+    state = nextMonitorState(state, { profileOnline: false, pingOk: false, now });
+    state = nextMonitorState(state, { profileOnline: false, pingOk: false, now });
+    const threshold = nextMonitorState(state, { profileOnline: false, pingOk: false, now });
+    const after = nextMonitorState(threshold, { profileOnline: false, pingOk: false, now });
+
+    expect(threshold.failureCount).toBe(3);
+    expect(threshold.shouldReset).toBe(true);
+    expect(after.failureCount).toBe(4);
+    expect(after.shouldReset).toBe(false);
+  });
 });

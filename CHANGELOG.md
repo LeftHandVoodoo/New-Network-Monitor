@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add adapter parsing utilities and PowerShell runner.
 - Add coverage for listAdapters error propagation.
 - Add connectivity profile parsing and monitor reset logic.
+- Add tests for connectivity profile parsing and reset threshold behavior.
 
 ### Changed
 
@@ -27,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Harden PowerShell adapter parsing for invalid payloads and add coverage.
 - Fail fast on PowerShell adapter query errors.
 - Decode UTF-16LE PowerShell output (strip BOM) and hide the console window.
+- Treat invalid connectivity payloads as offline, skip non-object entries, and accept IPv6 LocalNetwork.
+- Trigger adapter reset only on the initial failure threshold.
 
 ### Removed
 

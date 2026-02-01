@@ -20,6 +20,6 @@ export function nextMonitorState(state: MonitorState, input: MonitorInput): Moni
     status: online ? "online" : "offline",
     failureCount,
     lastCheckedAt: input.now,
-    shouldReset: !online && failureCount >= 3
+    shouldReset: !online && failureCount === 3
   };
 }
