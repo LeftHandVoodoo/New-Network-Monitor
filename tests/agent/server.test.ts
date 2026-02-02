@@ -42,3 +42,20 @@ describe("server auth", () => {
     expect(res.status).toBe(200);
   });
 });
+
+describe("cors", () => {
+  it("handles preflight for localhost ui", async () => {
+    const res = await fetch(`${baseUrl}/health`, {
+      method: "OPTIONS",
+      headers: {
+        Origin: "http://localhost:5173",
+        "Access-Control-Request-Method": "GET",
+        "Access-Control-Request-Headers": "X-IPC-Token, Content-Type"
+      }
+    });
+
+    expect(res.status).toBe(204);
+    expect(res.headers.get("access-control-allow-origin")).toBe("http://localhost:5173");
+    expect(res.headers.get("access-control-allow-headers")).toContain("X-IPC-Token");
+  });
+});

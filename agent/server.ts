@@ -1,5 +1,7 @@
 import { createServer as createHttpServer } from "node:http";
 
+const ALLOWED_ORIGIN_PREFIXES = ["http://localhost:", "http://127.0.0.1:"];
+
 type ServerDeps = {
   token: string;
   getStatus: () => Promise<{ status: string; failureCount: number; lastCheckedAt: string }>;
@@ -9,8 +11,32 @@ type ServerDeps = {
   getEvents: () => Promise<unknown[]>;
 };
 
+function applyCors(req: Parameters<typeof createHttpServer>[0], res: Parameters<typeof createHttpServer>[1]) {
+  const origin = req.headers.origin;
+  const allowOrigin =
+    typeof origin === "string" &&
+    ALLOWED_ORIGIN_PREFIXES.some((prefix) => origin.startsWith(prefix));
+
+  if (allowOrigin) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "X-IPC-Token, Content-Type");
+  res.setHeader("Access-Control-Max-Age", "600");
+}
+
 export function createServer(deps: ServerDeps) {
   return createHttpServer(async (req, res) => {
+    applyCors(req, res);
+
+    if (req.method === "OPTIONS") {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+
     const token = req.headers["x-ipc-token"];
     if (token !== deps.token) {
       res.writeHead(401, { "Content-Type": "application/json" });
