@@ -13,6 +13,7 @@ npm install
 ```powershell
 Copy-Item .env.example .env
 # Update IPC_TOKEN and VITE_IPC_TOKEN to the same value.
+# Set AUTO_RESET_ENABLED=false to prevent resets while testing.
 .\scripts\start-agent.ps1
 npm run dev
 ```

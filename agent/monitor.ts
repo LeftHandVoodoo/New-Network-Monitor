@@ -12,6 +12,15 @@ export type MonitorInput = {
 
 export type MonitorDecision = MonitorState & { shouldReset: boolean };
 
+export function shouldTriggerReset(
+  failureCount: number,
+  retryCount: number,
+  autoResetEnabled: boolean
+): boolean {
+  if (!autoResetEnabled) return false;
+  return failureCount === retryCount;
+}
+
 export function nextMonitorState(state: MonitorState, input: MonitorInput): MonitorDecision {
   const online = input.profileOnline && input.pingOk;
   const failureCount = online ? 0 : state.failureCount + 1;

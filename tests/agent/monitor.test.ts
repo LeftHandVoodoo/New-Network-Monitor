@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { describe, it, expect } from "vitest";
-import { nextMonitorState } from "../../agent/monitor";
+import { nextMonitorState, shouldTriggerReset } from "../../agent/monitor";
 
 const base = {
   status: "offline",
@@ -43,5 +43,11 @@ describe("monitor", () => {
     expect(threshold.shouldReset).toBe(true);
     expect(after.failureCount).toBe(4);
     expect(after.shouldReset).toBe(false);
+  });
+
+  it("respects auto reset disabled", () => {
+    expect(shouldTriggerReset(3, 3, false)).toBe(false);
+    expect(shouldTriggerReset(3, 3, true)).toBe(true);
+    expect(shouldTriggerReset(2, 3, true)).toBe(false);
   });
 });

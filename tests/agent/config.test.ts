@@ -11,4 +11,18 @@ describe("agent config", () => {
     expect(config.port).toBe(8787);
     expect(config.token).toBe("token");
   });
+
+  it("respects auto reset flag", () => {
+    const previous = process.env.AUTO_RESET_ENABLED;
+    process.env.AUTO_RESET_ENABLED = "false";
+
+    const config = readAgentConfig();
+    expect(config.autoResetEnabled).toBe(false);
+
+    if (previous === undefined) {
+      delete process.env.AUTO_RESET_ENABLED;
+    } else {
+      process.env.AUTO_RESET_ENABLED = previous;
+    }
+  });
 });

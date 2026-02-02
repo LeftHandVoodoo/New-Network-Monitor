@@ -1,4 +1,5 @@
 import { createServer as createHttpServer } from "node:http";
+import type { IncomingMessage, ServerResponse } from "node:http";
 
 const ALLOWED_ORIGIN_PREFIXES = ["http://localhost:", "http://127.0.0.1:"];
 
@@ -11,7 +12,7 @@ type ServerDeps = {
   getEvents: () => Promise<unknown[]>;
 };
 
-function applyCors(req: Parameters<typeof createHttpServer>[0], res: Parameters<typeof createHttpServer>[1]) {
+function applyCors(req: IncomingMessage, res: ServerResponse<IncomingMessage>) {
   const origin = req.headers.origin;
   const allowOrigin =
     typeof origin === "string" &&

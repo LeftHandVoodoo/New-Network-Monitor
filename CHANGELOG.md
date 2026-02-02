@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Treat invalid connectivity payloads as offline, skip non-object entries, and accept IPv6 LocalNetwork.
 - Trigger adapter reset only on the initial failure threshold.
 - Allow CORS requests from the local UI dev server.
+- Allow disabling adapter resets during testing via AUTO_RESET_ENABLED.
 
 ### Removed
 

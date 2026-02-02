@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { createServer } from "./server.js";
 import { listAdapters } from "./adapters.js";
 import { parseConnectivityProfiles } from "./connectivity.js";
-import { nextMonitorState, MonitorState } from "./monitor.js";
+import { nextMonitorState, MonitorState, shouldTriggerReset } from "./monitor.js";
 import { runPowerShell } from "./powershell.js";
 import { readAgentConfig } from "./config.js";
 
@@ -221,7 +221,14 @@ async function runMonitorCycle() {
       lastCheckedAt: decision.lastCheckedAt
     };
 
-    if (monitorState.status === "offline" && monitorState.failureCount === runtimeConfig.retryCount) {
+    if (
+      monitorState.status === "offline" &&
+      shouldTriggerReset(
+        monitorState.failureCount,
+        runtimeConfig.retryCount,
+        runtimeConfig.autoResetEnabled
+      )
+    ) {
       recordEvent(
         `Connectivity offline after ${monitorState.failureCount} checks. Triggering reset.`
       );

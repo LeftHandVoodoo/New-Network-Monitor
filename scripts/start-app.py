@@ -59,6 +59,7 @@ def start_agent(root: Path, env: dict[str, str]) -> None:
     ping_target = env.get("PING_TARGET", "8.8.8.8")
     retry_count = parse_int(env.get("RETRY_COUNT"), 3)
     retry_interval = parse_int(env.get("RETRY_INTERVAL_MS"), 5000)
+    auto_reset_enabled = env.get("AUTO_RESET_ENABLED", "").strip()
 
     args = [
         "powershell.exe",
@@ -78,6 +79,9 @@ def start_agent(root: Path, env: dict[str, str]) -> None:
         "-RetryIntervalMs",
         str(retry_interval)
     ]
+
+    if auto_reset_enabled:
+        args += ["-AutoResetEnabled", auto_reset_enabled]
 
     print("Starting agent (UAC prompt expected)...")
     subprocess.Popen(args, cwd=str(root))
